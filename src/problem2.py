@@ -3,8 +3,8 @@ Exam 2, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Kent Smith.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
 import time
@@ -13,7 +13,7 @@ import testing_helper
 
 
 ###############################################################################
-# TODO: 2.  READ the   Point   class defined below.
+# DONE: 2.  READ the   Point   class defined below.
 #  Note especially its methods:
 #    clone
 #    distance_from
@@ -92,7 +92,7 @@ def main():
     # run_test_bigger_triangle()
     # run_test_shrink_or_expand()
     # run_test_return_doubled_triangle()
-    # run_test_get_largest_area()
+    run_test_get_largest_area()
 
 
 ###############################################################################
@@ -137,8 +137,12 @@ class Triangle(object):
           :type b: Point
           :type c: Point
         """
+        self.a = a.clone()
+        self.b = b.clone()
+        self.c = c.clone()
+        self.largest_area = 0
         # ---------------------------------------------------------------------
-        # TODO: 2.
+        # DONE: 2.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -177,8 +181,16 @@ class Triangle(object):
         Type hints:
           :rtype: float
         """
+        x1 = self.a.distance_from(self.b)
+        x2 = self.b.distance_from(self.c)
+        x3 = self.c.distance_from(self.a)
+        s = (1 / 2) * (x1 + x2 + x3)
+        area = math.sqrt(s * (s - x1) * (s - x2) * (s - x3))
+        if area > self.largest_area:
+            self.largest_area = area
+        return area
         # ---------------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   a. READ the above specification, including the Example AND HINT!
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -200,8 +212,12 @@ class Triangle(object):
           :type: triangle2: Triangle
           :rtype: bool
         """
+        if self.area() > triangle2.area():
+            return True
+        else:
+            return False
         # ---------------------------------------------------------------------
-        # TODO 4:
+        # DONE 4:
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -223,8 +239,14 @@ class Triangle(object):
          Type hints:
            :type: f: float
         """
+        self.a.x *= f
+        self.a.y *= f
+        self.b.x *= f
+        self.b.y *= f
+        self.c.x *= f
+        self.c.y *= f
         # ---------------------------------------------------------------------
-        # TODO 8:
+        # DONE 8:
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -246,8 +268,10 @@ class Triangle(object):
         Type hints:
           :rtype: Triangle:
         """
+        self.shrink_or_expand(2)
+        return self
         # -------------------------------------------------------------------------
-        # TODO: 9
+        # DONE: 9
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -270,8 +294,9 @@ class Triangle(object):
         Type hints:
           :rtype: Float:
         """
+        return self.largest_area
         # ---------------------------------------------------------------------
-        # TODO: 9
+        # DONE: 9
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
